@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chat App</title>
+
+    <link rel="stylesheet" href="/client/css/style.css">
+    <link rel="stylesheet" href="/client/css/login.css">
+    <link rel="stylesheet" href="/client/css/register.css">
+    <link rel="stylesheet" href="/client/css/profile.css">
+    <link rel="stylesheet" href="/client/css/chat.css">
+
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- BARRA SUPERIOR -->
+    <!-- ========================= -->
+
+    <header class="topbar">
+
+        <div class="logo">
+
+            <h2>Chat App</h2>
+
+        </div>
+
+        <div class="perfil">
+
+            <div id="avatar">
+
+                ?
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- ========================= -->
+    <!-- LOGIN -->
+    <!-- ========================= -->
+
+    <div id="loginModal" class="modal">
+
+        <div class="card">
+
+            <h2>Iniciar sesión</h2>
+
+            <input
+                type="email"
+                id="loginCorreo"
+                placeholder="Correo">
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Contraseña">
+
+            <button id="btnLogin">
+
+                Iniciar sesión
+
+            </button>
+
+            <p>
+
+                ¿No tienes cuenta?
+
+                <span id="abrirRegistro">
+
+                    Registrarse
+
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- REGISTRO -->
+    <!-- ========================= -->
+
+    <div id="registerModal" class="modal oculto">
+
+        <div class="card">
+
+            <h2>Crear cuenta</h2>
+
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Nombre">
+
+            <input
+                type="email"
+                id="correo"
+                placeholder="Correo">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Contraseña">
+
+            <button id="btnRegister">
+
+                Registrarse
+
+            </button>
+
+            <p>
+
+                ¿Ya tienes cuenta?
+
+                <span id="abrirLogin">
+
+                    Iniciar sesión
+
+                </span>
+
+            </p>
+
+        </div>
+
+    </div>
+        <!-- ========================= -->
+    <!-- MENÚ DEL PERFIL -->
+    <!-- ========================= -->
+
+    <div id="profileMenu" class="profile-menu oculto">
+
+        <div class="profile-header">
+
+            <div id="profileAvatar" class="profile-avatar">
+
+                ?
+
+            </div>
+
+            <div class="profile-info">
+
+                <h3 id="profileName">
+
+                    Invitado
+
+                </h3>
+
+                <p id="profileEmail">
+
+                    Sin iniciar sesión
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="profile-options">
+
+            <button id="btnPerfil">
+
+                👤 Mi perfil
+
+            </button>
+
+            <button id="btnConfiguracion">
+
+                ⚙ Configuración
+
+            </button>
+
+            <button id="btnLogout">
+
+                🚪 Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- BOTÓN DEL CHAT -->
+    <!-- ========================= -->
+
+    <button id="chatButton">
+
+        💬
+
+        <span
+            id="chatNotification"
+            class="notification oculto">
+
+            ●
+
+        </span>
+
+    </button>
+
+    <!-- ========================= -->
+    <!-- PANEL DEL CHAT -->
+    <!-- ========================= -->
+
+    <div id="chatPanel" class="chat-panel oculto">
+
+        <div class="chat-header">
+
+            <h3>
+
+                Usuarios registrados
+
+            </h3>
+
+            <button id="closeChat">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="chat-search">
+
+            <input
+                type="text"
+                id="buscarUsuario"
+                placeholder="Buscar usuario...">
+
+        </div>
+
+        <div
+            id="usersList"
+            class="users-list">
+
+            <div class="empty-users">
+
+                No hay usuarios registrados.
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- ========================= -->
+    <!-- VENTANA DE CONVERSACIÓN -->
+    <!-- ========================= -->
+
+    <div id="conversationWindow" class="conversation-window oculto">
+
+        <div class="conversation-header">
+
+            <button id="backToUsers">
+
+                ←
+
+            </button>
+
+            <div class="conversation-user">
+
+                <div
+                    id="conversationAvatar"
+                    class="conversation-avatar">
+
+                    ?
+
+                </div>
+
+                <div>
+
+                    <h3 id="conversationName">
+
+                        Selecciona un usuario
+
+                    </h3>
+
+                    <span id="conversationStatus">
+
+                        Desconectado
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MENSAJES -->
+
+        <div
+            id="messagesContainer"
+            class="messages-container">
+
+            <div class="empty-chat">
+
+                Selecciona un usuario para comenzar a chatear.
+
+            </div>
+
+        </div>
+
+        <!-- ESCRIBIR MENSAJE -->
+
+        <div class="message-box">
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Escribe un mensaje..."
+                autocomplete="off">
+
+            <button id="sendMessage">
+
+                Enviar
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- CARGAR SOCKET.IO -->
+    <!-- ========================= -->
+
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+        <!-- ========================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================= -->
+
+    <script src="/client/js/app.js"></script>
+    <script src="/client/js/auth.js"></script>
+
+    <!-- Si estos archivos todavía no existen,
+         déjalos comentados por ahora. -->
+
+    <!--
+    <script src="js/profile.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/chat.js"></script>
+    -->
+
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+/* ========================= */
+/* REGISTRO */
+/* ========================= */
+
+#registerModal{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+#registerModal .card{
+
+    animation:registerAnimation .35s ease;
+
+}
+
+@keyframes registerAnimation{
+
+    from{
+
+        opacity:0;
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+#registerModal input{
+
+    transition:.25s;
+
+}
+
+#registerModal input:focus{
+
+    border:2px solid #22c55e;
+    background:#3b4b61;
+
+}
+
+#btnRegister{
+
+    margin-top:18px;
+
+}
+
+#btnRegister:hover{
+
+    transform:translateY(-2px);
+
+}
+
+#registerModal p{
+
+    margin-top:18px;
+    font-size:14px;
+
+}
+
+#abrirLogin{
+
+    color:#22c55e;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+
+}
+
+#abrirLogin:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ========================= */
+/* EFECTO DE LOS INPUTS */
+/* ========================= */
+
+#registerModal input::placeholder{
+
+    color:#cbd5e1;
+
+}
+
+#registerModal input:focus::placeholder{
+
+    color:#94a3b8;
+
+}

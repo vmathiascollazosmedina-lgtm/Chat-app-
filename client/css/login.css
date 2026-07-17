@@ -1,0 +1,82 @@
+/* ========================= */
+/* LOGIN */
+/* ========================= */
+
+#loginModal{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+#loginModal .card{
+
+    animation:loginAnimation .35s ease;
+
+}
+
+@keyframes loginAnimation{
+
+    from{
+
+        opacity:0;
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+#loginModal input{
+
+    transition:.25s;
+
+}
+
+#loginModal input:focus{
+
+    border:2px solid #22c55e;
+    background:#3b4b61;
+
+}
+
+#btnLogin{
+
+    margin-top:18px;
+
+}
+
+#btnLogin:hover{
+
+    transform:translateY(-2px);
+
+}
+
+#loginModal p{
+
+    margin-top:18px;
+    font-size:14px;
+
+}
+
+#abrirRegistro{
+
+    color:#22c55e;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+
+}
+
+#abrirRegistro:hover{
+
+    text-decoration:underline;
+
+}

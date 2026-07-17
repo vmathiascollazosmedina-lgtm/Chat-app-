@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1784180632708,
+        "nombre": "Mathias",
+        "correo": "Mathias@programador.com",
+        "password": "programador027"
+    },
+    {
+        "id": 1784181337565,
+        "nombre": "Diego",
+        "correo": "Diego@mecanico.com",
+        "password": "1235"
+    },
+    {
+        "id": 1784181375305,
+        "nombre": "Diego",
+        "correo": "Diego@mecanico.com.me",
+        "password": "123456789"
+    },
+    {
+        "id": 1784241706918,
+        "nombre": "Mathias",
+        "correo": "toxicx",
+        "password": "12345"
+    },
+    {
+        "id": 1784243808659,
+        "nombre": "Mathias",
+        "correo": "mathias0008",
+        "password": "programador12345"
+    },
+    {
+        "id": 1784251411683,
+        "nombre": "Mathias",
+        "correo": "mathias123",
+        "password": "0123"
+    }
+]
