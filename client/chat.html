@@ -12,20 +12,15 @@
 
 </head>
 
-
 <body>
 
-
 <div class="app">
-
 
     <!-- ========================= -->
     <!-- BARRA LATERAL -->
     <!-- ========================= -->
 
-
     <aside class="sidebar">
-
 
         <div class="logo">
 
@@ -33,158 +28,156 @@
 
         </div>
 
-
-
         <div class="usuario">
 
-
             <div class="avatar">
-
                 ?
-
             </div>
 
-
-
-            <div>
+            <div class="infoUsuario">
 
                 <h3 id="usuarioActual">
                     Usuario
                 </h3>
 
-
                 <span>
                     🟢 En línea
                 </span>
 
-
             </div>
 
+            <button id="logoutBtn" title="Cerrar sesión">
+
+                🚪
+
+            </button>
 
         </div>
 
+        <div class="menu">
 
-
-
-
-        <div class="chats">
-
-
-            <button id="btnPublico">
+            <button
+                id="btnPublico"
+                class="menu-btn activo">
 
                 🌎 Chat Público
 
             </button>
 
-
-            <button id="btnPrivado">
+            <button
+                id="btnPrivado"
+                class="menu-btn">
 
                 👥 Chat Privado
 
             </button>
 
-
         </div>
 
+        <div
+            id="usuariosConectados"
+            class="usuarios-panel oculto">
 
+            <div class="usuarios-header">
+
+                <h3>
+                    Usuarios conectados
+                </h3>
+
+                <span id="cantidadUsuarios">
+
+                    0
+
+                </span>
+
+            </div>
+
+            <div id="listaUsuarios">
+
+            </div>
+
+        </div>
 
     </aside>
 
-
-
-
-
     <!-- ========================= -->
-    <!-- CHAT PRINCIPAL -->
+    <!-- CHAT -->
     <!-- ========================= -->
-
 
     <main class="chat">
 
-
         <div class="chat-header">
 
+            <div>
 
-            <h2>
+                <h2 id="chatTitulo">
 
-                Chat Público
+                    🌎 Chat Público
 
-            </h2>
+                </h2>
 
+                <span id="estadoChat">
 
-        </div>
+                    Conectando...
 
+                </span>
 
-
-
-
-        <!-- MENSAJES -->
-
-
-        <div 
-        id="messagesContainer"
-        class="messages">
-
+            </div>
 
         </div>
 
+        <div
+            id="messagesContainer"
+            class="messages">
+                    </div>
 
-
-
-
-        <!-- ESCRIBIR -->
-
+        <!-- ========================= -->
+        <!-- ESCRIBIR MENSAJE -->
+        <!-- ========================= -->
 
         <div class="input-area">
 
+            <button
+                id="btnEmoji"
+                class="input-btn"
+                title="Emojis">
 
-            <input
-
-                type="text"
-
-                id="messageInput"
-
-                placeholder="Escribe un mensaje..."
-
-                autocomplete="off"
-
-            >
-
-
-
-            <button id="sendMessage">
-
-                Enviar
+                😊
 
             </button>
 
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Escribe un mensaje..."
+                autocomplete="off"
+            >
 
+            <button
+                id="sendMessage"
+                class="send-btn">
+
+                ➤
+
+            </button>
 
         </div>
 
-
-
     </main>
-
-
 
 </div>
 
-
-
-
-
+<!-- ========================= -->
 <!-- SOCKET.IO -->
+<!-- ========================= -->
 
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
-
-<!-- CHAT JS -->
+<!-- ========================= -->
+<!-- CHAT -->
+<!-- ========================= -->
 
 <script src="/client/js/chat.js"></script>
 
-
 </body>
-
-
 </html>

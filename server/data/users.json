@@ -34,5 +34,17 @@
         "nombre": "Mathias",
         "correo": "mathias123",
         "password": "0123"
+    },
+    {
+        "id": 1784252279403,
+        "nombre": "Toxicx",
+        "correo": "Toxicx@programador.com",
+        "password": "12345"
+    },
+    {
+        "id": 1784252419350,
+        "nombre": "Diego",
+        "correo": "diego.com",
+        "password": "123"
     }
 ]

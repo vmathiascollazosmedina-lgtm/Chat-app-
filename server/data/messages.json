@@ -4,7 +4,108 @@
             "usuario": "Mathias",
             "texto": "Hola",
             "fecha": 1784251416056
+        },
+        {
+            "usuario": "Mathias",
+            "texto": "QXD",
+            "fecha": 1784252071099
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "Hola",
+            "fecha": 1784252284715
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "Hola",
+            "fecha": 1784252393012
+        },
+        {
+            "usuario": "Diego",
+            "texto": "Hola",
+            "fecha": 1784252423681
+        },
+        {
+            "usuario": "Diego",
+            "texto": "Hola diego",
+            "fecha": 1784252430588
+        },
+        {
+            "usuario": "Diego",
+            "texto": "xd",
+            "fecha": 1784252435822
+        },
+        {
+            "usuario": "Diego",
+            "texto": "Hola",
+            "fecha": 1784252496795
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "Hola",
+            "fecha": 1784252499123
+        },
+        {
+            "usuario": "Diego",
+            "texto": "Hola",
+            "fecha": 1784253434051
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "Hola",
+            "fecha": 1784255912123
+        },
+        {
+            "usuario": "Diego",
+            "texto": "Hola",
+            "fecha": 1784259967577
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "Hola",
+            "fecha": 1784259978978
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "dsa",
+            "fecha": 1784260002374
+        },
+        {
+            "usuario": "Toxicx",
+            "texto": "Que chebre esto",
+            "fecha": 1784260010083
         }
     ],
-    "privados": {}
+    "privados": {
+        "1784252279403_1784252419350": [
+            {
+                "de": 1784252419350,
+                "para": 1784252279403,
+                "usuario": "Diego",
+                "texto": "Hola",
+                "fecha": 1784257301994
+            },
+            {
+                "de": 1784252279403,
+                "para": 1784252419350,
+                "usuario": "Toxicx",
+                "texto": "Hola",
+                "fecha": 1784257324228
+            },
+            {
+                "de": 1784252279403,
+                "para": 1784252419350,
+                "usuario": "Toxicx",
+                "texto": "Hola",
+                "fecha": 1784257905235
+            },
+            {
+                "de": 1784252279403,
+                "para": 1784252419350,
+                "usuario": "Toxicx",
+                "texto": "Hola",
+                "fecha": 1784258788249
+            }
+        ]
+    }
 }

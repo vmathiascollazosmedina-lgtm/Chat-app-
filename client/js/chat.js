@@ -5,38 +5,42 @@ console.log("chat.js funcionando");
 // USUARIO ACTUAL
 // =====================================
 
+
 const usuario = JSON.parse(
     localStorage.getItem("usuario")
 );
 
 
-if (!usuario) {
+if(!usuario){
 
-    window.location.href = "index.html";
+    window.location.href = "/index.html";
 
 }
 
 
-// Mostrar nombre del usuario
+
+// Mostrar usuario
 
 const usuarioActual =
 document.getElementById("usuarioActual");
 
 
-if (usuarioActual) {
+if(usuarioActual){
 
-    usuarioActual.textContent = usuario.nombre;
+    usuarioActual.textContent =
+    usuario.nombre;
 
 }
 
 
-// Mostrar inicial en avatar
+
+// Avatar
 
 const avatar =
 document.querySelector(".avatar");
 
 
-if (avatar) {
+if(avatar){
 
     avatar.textContent =
     usuario.nombre
@@ -48,7 +52,7 @@ if (avatar) {
 
 
 // =====================================
-// CONEXIÓN SOCKET.IO
+// SOCKET.IO
 // =====================================
 
 
@@ -58,7 +62,8 @@ const socket = io(
 
 
 
-socket.on("connect", () => {
+socket.on("connect",()=>{
+
 
     console.log(
         "Conectado al servidor:",
@@ -71,13 +76,13 @@ socket.on("connect", () => {
         usuario
     );
 
+
 });
 
 
 
-
 // =====================================
-// ELEMENTOS DEL CHAT
+// ELEMENTOS
 // =====================================
 
 
@@ -87,10 +92,12 @@ document.getElementById(
 );
 
 
+
 const messageInput =
 document.getElementById(
     "messageInput"
 );
+
 
 
 const sendMessage =
@@ -100,9 +107,36 @@ document.getElementById(
 
 
 
+const usuariosOnline =
+document.getElementById(
+    "usuariosOnline"
+);
+
+
+
+const listaUsuarios =
+document.getElementById(
+    "listaUsuarios"
+);
+
+
+
+const cantidadUsuarios =
+document.getElementById(
+    "cantidadUsuarios"
+);
+
+
+
+const logoutBtn =
+document.getElementById(
+    "logoutBtn"
+);
+
+
 
 // =====================================
-// RECIBIR HISTORIAL
+// HISTORIAL PUBLICO
 // =====================================
 
 
@@ -115,11 +149,11 @@ socket.on(
 
 
         mensajes.forEach(
-            (mensaje)=>{
+            mensaje=>{
 
-
-                mostrarMensaje(mensaje);
-
+                mostrarMensaje(
+                    mensaje
+                );
 
             }
         );
@@ -130,9 +164,8 @@ socket.on(
 
 
 
-
 // =====================================
-// RECIBIR MENSAJES NUEVOS
+// NUEVOS MENSAJES
 // =====================================
 
 
@@ -141,7 +174,9 @@ socket.on(
     (mensaje)=>{
 
 
-        mostrarMensaje(mensaje);
+        mostrarMensaje(
+            mensaje
+        );
 
 
     }
@@ -149,10 +184,8 @@ socket.on(
 
 
 
-
-
 // =====================================
-// MOSTRAR MENSAJE EN PANTALLA
+// MOSTRAR MENSAJE
 // =====================================
 
 
@@ -163,24 +196,61 @@ function mostrarMensaje(mensaje){
     document.createElement("div");
 
 
+
     div.className =
     "mensaje";
 
 
 
+    if(
+        mensaje.usuario === usuario.nombre
+    ){
+
+        div.classList.add(
+            "propio"
+        );
+
+    }
+
+
+
+    const hora =
+    new Date(
+        mensaje.fecha
+    )
+    .toLocaleTimeString(
+        [],
+        {
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+
+
     div.innerHTML = `
 
-        <b>${mensaje.usuario}</b>
+        <b>
+            ${mensaje.usuario}
+        </b>
 
         <br>
 
-        <span>${mensaje.texto}</span>
+        <span>
+            ${mensaje.texto}
+        </span>
+
+        <small>
+            ${hora}
+        </small>
 
     `;
 
 
 
-    messagesContainer.appendChild(div);
+    messagesContainer.appendChild(
+        div
+    );
 
 
 
@@ -189,12 +259,6 @@ function mostrarMensaje(mensaje){
 
 
 }
-
-
-
-
-
-
 // =====================================
 // ENVIAR MENSAJE
 // =====================================
@@ -208,7 +272,7 @@ function enviarMensaje(){
 
 
 
-    if(texto === "") {
+    if(texto === ""){
 
         return;
 
@@ -217,9 +281,7 @@ function enviarMensaje(){
 
 
     socket.emit(
-
         "mensajePublico",
-
         {
 
             usuario: usuario.nombre,
@@ -227,7 +289,6 @@ function enviarMensaje(){
             texto: texto
 
         }
-
     );
 
 
@@ -235,28 +296,36 @@ function enviarMensaje(){
     messageInput.value = "";
 
 
+
 }
 
 
 
+// =====================================
+// BOTÓN ENVIAR
+// =====================================
 
-
-// Botón enviar
 
 if(sendMessage){
+
 
     sendMessage.addEventListener(
         "click",
         enviarMensaje
     );
 
+
 }
 
 
 
-// Enter para enviar
+// =====================================
+// ENTER PARA ENVIAR
+// =====================================
+
 
 if(messageInput){
+
 
     messageInput.addEventListener(
         "keydown",
@@ -272,5 +341,152 @@ if(messageInput){
 
         }
     );
+
+
+}
+
+
+
+
+// =====================================
+// USUARIOS CONECTADOS
+// =====================================
+
+
+socket.on(
+    "listaUsuarios",
+    (usuarios)=>{
+
+
+        if(listaUsuarios){
+
+
+            listaUsuarios.innerHTML = "";
+
+
+        }
+
+
+
+        let cantidad = 0;
+
+
+
+        usuarios.forEach(
+            (user)=>{
+
+
+                cantidad++;
+
+
+
+                if(
+                    user.id === usuario.id
+                ){
+
+                    return;
+
+                }
+
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                div.className =
+                "usuarioItem";
+
+
+
+                div.innerHTML = `
+
+                    🟢 ${user.nombre}
+
+                `;
+
+
+
+                if(listaUsuarios){
+
+                    listaUsuarios.appendChild(
+                        div
+                    );
+
+                }
+
+
+
+            }
+        );
+
+
+
+        if(cantidadUsuarios){
+
+            cantidadUsuarios.textContent =
+            cantidad;
+
+        }
+
+
+
+        if(usuariosOnline){
+
+            usuariosOnline.textContent =
+            cantidad + " usuarios conectados";
+
+        }
+
+
+    }
+);
+
+
+
+// =====================================
+// CERRAR SESIÓN
+// =====================================
+
+
+if(logoutBtn){
+
+
+    logoutBtn.addEventListener(
+        "click",
+        ()=>{
+
+
+            const confirmar =
+            confirm(
+                "¿Deseas cerrar sesión?"
+            );
+
+
+
+            if(!confirmar){
+
+                return;
+
+            }
+
+
+
+            localStorage.removeItem(
+                "usuario"
+            );
+
+
+
+            window.location.href =
+            "/index.html";
+
+
+        }
+    );
+
 
 }

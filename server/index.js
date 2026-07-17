@@ -30,7 +30,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
 app.use(express.urlencoded({
     extended: true
 }));
@@ -67,6 +66,7 @@ const messagesFile = path.join(
 );
 
 if (!fs.existsSync(messagesFile)) {
+
     fs.writeFileSync(
         messagesFile,
         JSON.stringify({
@@ -74,10 +74,11 @@ if (!fs.existsSync(messagesFile)) {
             privados: {}
         }, null, 4)
     );
+
 }
 
 // =====================================
-// LEER MENSAJES
+// MENSAJES
 // =====================================
 
 function getMessages() {
@@ -100,7 +101,7 @@ function getMessages() {
 
         return JSON.parse(data);
 
-    } catch (err) {
+    } catch {
 
         return {
             publico: [],
@@ -110,10 +111,6 @@ function getMessages() {
     }
 
 }
-
-// =====================================
-// GUARDAR MENSAJES
-// =====================================
 
 function saveMessages(data) {
 
@@ -131,18 +128,21 @@ function saveMessages(data) {
 let usuariosConectados = [];
 
 // =====================================
-// SOCKET.IO
+// SOCKET
 // =====================================
 
 io.on("connection", (socket) => {
 
     console.log("Usuario conectado:", socket.id);
 
+    // ---------------------------
     // Usuario conectado
+    // ---------------------------
+
     socket.on("usuarioConectado", (usuario) => {
 
         const existe = usuariosConectados.find(
-            u => u.id === usuario.id
+            u => u.id == usuario.id
         );
 
         if (!existe) {
@@ -164,7 +164,6 @@ io.on("connection", (socket) => {
             usuariosConectados
         );
 
-        // Enviar historial
         const mensajes = getMessages();
 
         socket.emit(
@@ -174,18 +173,25 @@ io.on("connection", (socket) => {
 
     });
 
-    // Chat público
+    // ---------------------------
+    // CHAT PÚBLICO
+    // ---------------------------
+
     socket.on("mensajePublico", (mensaje) => {
 
         const mensajes = getMessages();
 
         const nuevoMensaje = {
+
             usuario: mensaje.usuario,
             texto: mensaje.texto,
             fecha: Date.now()
+
         };
 
-        mensajes.publico.push(nuevoMensaje);
+        mensajes.publico.push(
+            nuevoMensaje
+        );
 
         saveMessages(mensajes);
 
@@ -196,7 +202,88 @@ io.on("connection", (socket) => {
 
     });
 
-    // Desconexión
+    // ---------------------------
+    // CHAT PRIVADO
+    // ---------------------------
+
+    socket.on("mensajePrivado", (data) => {
+
+        const mensajes = getMessages();
+
+        const clave = [
+            String(data.de),
+            String(data.para)
+        ]
+        .sort()
+        .join("_");
+
+        if (!mensajes.privados[clave]) {
+
+            mensajes.privados[clave] = [];
+
+        }
+
+        const nuevoMensaje = {
+
+            de: data.de,
+            para: data.para,
+            usuario: data.usuario,
+            texto: data.texto,
+            fecha: Date.now()
+
+        };
+
+        mensajes.privados[clave].push(
+            nuevoMensaje
+        );
+
+        saveMessages(mensajes);
+
+        const destino = usuariosConectados.find(
+            u => u.id == data.para
+        );
+
+        if (destino) {
+
+            io.to(destino.socketId).emit(
+                "nuevoMensajePrivado",
+                nuevoMensaje
+            );
+
+        }
+
+        socket.emit(
+            "nuevoMensajePrivado",
+            nuevoMensaje
+        );
+
+    });
+        // ---------------------------
+    // OBTENER HISTORIAL PRIVADO
+    // ---------------------------
+
+    socket.on("obtenerChatPrivado", (data) => {
+
+        const mensajes = getMessages();
+
+        const clave = [
+            String(data.de),
+            String(data.para)
+        ]
+        .sort()
+        .join("_");
+
+        socket.emit(
+            "historialPrivado",
+            mensajes.privados[clave] || []
+        );
+
+    });
+
+    // ---------------------------
+    // DESCONECTAR
+    // ---------------------------
+
     socket.on("disconnect", () => {
 
         usuariosConectados = usuariosConectados.filter(
@@ -208,7 +295,10 @@ io.on("connection", (socket) => {
             usuariosConectados
         );
 
-        console.log("Usuario desconectado:", socket.id);
+        console.log(
+            "Usuario desconectado:",
+            socket.id
+        );
 
     });
 
@@ -221,7 +311,10 @@ io.on("connection", (socket) => {
 app.get("/", (req, res) => {
 
     res.sendFile(
-        path.join(__dirname, "../client/index.html")
+        path.join(
+            __dirname,
+            "../client/index.html"
+        )
     );
 
 });
@@ -236,7 +329,7 @@ server.listen(PORT, () => {
 
     console.log("==============================");
     console.log("Servidor iniciado correctamente");
-    console.log(`http://localhost:${PORT}`);
+    console.log("http://localhost:" + PORT);
     console.log("==============================");
 
 });
